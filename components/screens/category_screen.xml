@@ -3,16 +3,12 @@
     <script type="text/brightscript" uri="pkg:/components/screens/category_screen.brs" />
     <children>
     <!-- color="0x000000" -->
-        <Label
-        translation="[75, 150]"
-        id="env"
-        font="font:LargeBoldSystemFont"
-        text="PICK A CATEGORY:"/>
+        <Label translation="[75, 150]" id="env" font="font:LargeBoldSystemFont" text="PICK A CATEGORY:"/>
         <RadioButtonList id="category_list" translation="[100, 200]" itemSize="[400,48]">
             <ContentNode id="categories" role="content">
-                <ContentNode title= "DRAMA" feed_url="http://10.0.0.42:8888/roku_lessons/drama.json"/>
-                <ContentNode title = "COMEDY" feed_url="http://10.0.0.42:8888/roku_lessons/comedy.json"/>
-                <ContentNode title = "HORROR" feed_url="http://10.0.0.42:8888/roku_lessons/horror.json"/>
+                <category_node title="DRAMA" feed_url = "http://192.168.86.44/:8888/roku_lessons/drama.json"/>
+                <category_node title = "COMEDY" feed_url = "http://10.0.0.42:8085/roku_lessons/comedy.json"/>
+                <category_node title = "HORROR"    feed_url = "http://10.0.0.42:8888/roku_lessons/horror.json"/>
             </ContentNode>
         </RadioButtonList>
     </children>

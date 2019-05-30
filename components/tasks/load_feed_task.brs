@@ -30,4 +30,5 @@ function request()
         http.asynccancel()
       end if
     end if
+    return 0
 end function
