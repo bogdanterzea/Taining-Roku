@@ -35,4 +35,7 @@ If timeout is zero, "wait" will wait for ever.
 Otherwise, Wait will return after timeout milliseconds if no messages are received.
 In this case, Wait returns a type "invalid".
 
+The __<interface>__ element defines a set of fields to be exposed by a component, to allow instances of the component to be manipulated externally to the component.
+_alias_ allows a top-level component field to be declared as an alias of a field in one of the component child nodes.
+
 __task.control__==
