@@ -1,13 +1,19 @@
 # Help for understanding Roku brightscript.
 
-__.m__==
+__m.__ it's used to identify and acces objects anywere within a component XML file.
+_m.top_ refers for components in XML file
+
+The __Task node class__ allows you to specify a function to be spawned in a different thread.
+A Task node is typically used to read data from a server to create a ContentNode to configure a SceneGraph node or component. A Task node can be considered a content reader.
+
+__ContentNode__ nodes are required to configure many components rendered in a scene, such as lists, panels, and grids.
 
 __roUrlTransfer__==transfers data safe to or from remote servers specified by URLs
 used to ensure all network traffic is handled asynchronously
 Can only be used in a Task node
 This object is created with no parameters { CreateObject("roUrlTransfer") }.
 
-__RetainBodyOnError__=If retain is true, return the body of the response even if the HTTP status code indicates that an error occurred {get a retain as boolean} [in my case i call it with true because]
+__RetainBodyOnError__=If retain is true, return the body of the response even if the HTTP status code indicates that an error occurred {get a retain as boolean} [in my case i call it with true]
 
 __roMessagePort__== is the place messages (events) are sent.
 This object is created with no parameters { CreateObject("roMessagePort") }.
@@ -28,3 +34,5 @@ Wait() returns the event object that was posted to the message port.
 If timeout is zero, "wait" will wait for ever.
 Otherwise, Wait will return after timeout milliseconds if no messages are received.
 In this case, Wait returns a type "invalid".
+
+__task.control__==
