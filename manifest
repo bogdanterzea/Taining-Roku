@@ -1,9 +1,10 @@
 
 ##  Channel Details
-title=Roku Lesson 2
+title=Roku Lesson 4
 major_version=1
 minor_version=0
 build_version=0
+custom_field=hello_world
 
 ##   Channel Icons
 ####  Image size from mm_icon_focus_hd: 290x218px

@@ -5,6 +5,8 @@ sub main()
     ? "App Verson: ", app_info.getVersion()
     ? "Channel ID: ", app_info.getID()
     ? "IsDev: ", app_info.IsDev()
+    ? "custom_field", app_info.getValue("custom_field")
+
 
     device_info = CreateObject("roDeviceInfo")
 	? "Model: ", device_info.GetModel()
@@ -27,6 +29,7 @@ sub main()
     while(true)
 		msg = wait(0, m.port)
 		msgType = type(msg)
+        ? msgType
 		if msgType = "roSGScreenEvent"
 			if msg.isScreenClosed() then return
 		end if

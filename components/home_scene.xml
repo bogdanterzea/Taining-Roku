@@ -2,7 +2,7 @@
 <component name="home_scene" extends="Scene">
     <script type="text/brightscript" uri="pkg:/components/home_scene.brs" />
     <children>
-        <Rectangle id="center_square" translation="[950, 530]" width="20" height="20" color="0X000345" />
+        <Rectangle id="center_square" translation="[950, 530]" width="20" height="20" color="0X0F0345" />
         <Label id="label_hello" font="font:LargeBoldSystemFont" text="Hello!" color="0XFFFFFF" translation="[1720, 980]" />
         <category_screen id="category_screen" />
     </children>

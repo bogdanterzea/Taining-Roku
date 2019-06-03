@@ -22,13 +22,22 @@ end sub
 
 sub loadFeed(url)
     ? "loadFeed! ";url
+
+''    variabilaMea = "asd"
+
+    ' TODO: https://developer.roku.com/docs/developer-program/core-concepts/data-scoping.md
     m.feed_task = createObject("roSGNode", "load_feed_task")
     m.feed_task.observeField("response", "onFeedResponse")
+
+
     m.feed_task.url = url
+    ' TODO: learn more about task.control = "command"
     m.feed_task.control = "RUN"
 end sub
 
-sub onFeedResponse(obj)
+sub onFeedResponse(event as Object)
     ? "onFeedResponse: "
-    ? obj.getData()
+    ? event
+
+    ? event.getData()
 end sub
