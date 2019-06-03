@@ -1,43 +1,45 @@
 function init()
     m.category_list = m.top.findNode("category_list")
     m.category_list.setFocus(true)
-    addObservers()
+    m.category_label = m.top.findNode("category_label")
+    m.category_list.observeField("itemFocused", "onCategorySelected")
+    
+    m.category_list.content = createContentNode()
 end function
 
-sub addObservers()
-  m.category_list.observeField("itemSelected", "onCategorySelected")
+function createContentNode() as Object
+    contentNode = createObject("roSGNode","ContentNode")
+    for each key in getCategoryEntries()
+        categoryNode = createCategoryNode(key.title, key.url)
+        contentNode.appendChild(categoryNode)
+    end for
+
+    return contentNode
+end function
+
+function createCategoryNode(title as String, url as String) as Object
+    category_node = createObject("roSGNode", "category_node")
+    category_node.title = title
+    category_node.feed_url = url
+
+    return category_node
+end function
+
+function getCategoryEntries() as Object
+    return [
+        { title: "HORROR", url: "google.ro" },
+        { title: "DRAMA", url: "google.ro" },
+        { title: "COMEDY", url: "google.ro" }
+        { title: "SERIES", url: "google.ro" }
+    ]
+end function
+
+sub onCategorySelected(event as Object)
+    currnet_item_focused = event.getData()
+
+    m.category_label.text = "Current category selected:" + getCategoryTitle(currnet_item_focused)
 end sub
 
-sub onCategorySelected(obj)
-  ? "onCategorySelected field: ";obj.getField()
-  ? "onCategorySelected data: ";obj.getData()
-  selected_index = obj.getData()
-  ? "selected_index :";selected_index
-  ? "checkedItem: ";m.category_list.checkedItem
-  item = m.category_list.content.getChild(selected_index)
-  ? item.title
-  ? item.feed_url
-  loadFeed(item.feed_url)
-end sub
-
-sub loadFeed(url)
-    ? "loadFeed! ";url
-
-''    variabilaMea = "asd"
-
-    ' TODO: https://developer.roku.com/docs/developer-program/core-concepts/data-scoping.md
-    m.feed_task = createObject("roSGNode", "load_feed_task")
-    m.feed_task.observeField("response", "onFeedResponse")
-
-
-    m.feed_task.url = url
-    ' TODO: learn more about task.control = "command"
-    m.feed_task.control = "RUN"
-end sub
-
-sub onFeedResponse(event as Object)
-    ? "onFeedResponse: "
-    ? event
-
-    ? event.getData()
-end sub
+function getCategoryTitle(currnet_item as Integer) as String
+    return m.category_list.content.getChild(currnet_item).title
+end function
