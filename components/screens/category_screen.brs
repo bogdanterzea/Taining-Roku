@@ -3,14 +3,14 @@ function init()
     m.category_list.setFocus(true)
     m.category_label = m.top.findNode("category_label")
     m.category_list.observeField("itemFocused", "onCategorySelected")
-    
-    m.category_list.content = createContentNode()
+
+    runGetPhotosApiTask()
 end function
 
-function createContentNode() as Object
+function createCategoryListContent(response as Object) as Object
     contentNode = createObject("roSGNode","ContentNode")
-    for each key in getCategoryEntries()
-        categoryNode = createCategoryNode(key.title, key.url)
+    for each item in response
+        categoryNode = createCategoryNode(item.title, item.url)
         contentNode.appendChild(categoryNode)
     end for
 
@@ -25,13 +25,18 @@ function createCategoryNode(title as String, url as String) as Object
     return category_node
 end function
 
-function getCategoryEntries() as Object
-    return [
-        { title: "HORROR", url: "google.ro" },
-        { title: "DRAMA", url: "google.ro" },
-        { title: "COMEDY", url: "google.ro" }
-        { title: "SERIES", url: "google.ro" }
-    ]
+function runGetPhotosApiTask() as Void
+    task = CreateObject("roSgNode", "getPhotosApiTask")
+    task.observeField("response", "onResponseChanged")
+    task.control = "RUN"
+end function
+
+function onResponseChanged(event as Object) as Void
+    individual_data = ParseJson(event.getData())
+
+    category_list_content = createCategoryListContent(individual_data)
+
+    m.category_list.content = category_list_content
 end function
 
 sub onCategorySelected(event as Object)
