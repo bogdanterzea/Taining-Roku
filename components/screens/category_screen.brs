@@ -2,6 +2,7 @@ function init()
     m.category_list = m.top.findNode("category_list")
     m.category_list.setFocus(true)
     m.category_label = m.top.findNode("category_label")
+    m.content_image = m.top.findNode("content_image")
     m.category_list.observeField("itemFocused", "onCategorySelected")
 
     runGetPhotosApiTask()
@@ -33,7 +34,6 @@ end function
 
 function onResponseChanged(event as Object) as Void
     individual_data = ParseJson(event.getData())
-
     category_list_content = createCategoryListContent(individual_data)
 
     m.category_list.content = category_list_content
@@ -43,8 +43,13 @@ sub onCategorySelected(event as Object)
     currnet_item_focused = event.getData()
 
     m.category_label.text = "Current category selected:" + getCategoryTitle(currnet_item_focused)
+    m.content_image.uri = getCategoryURL(currnet_item_focused)
 end sub
 
-function getCategoryTitle(currnet_item as Integer) as String
-    return m.category_list.content.getChild(currnet_item).title
+function getCategoryTitle(current_item as Integer) as String
+    return m.category_list.content.getChild(current_item).title
+end function
+
+function getCategoryURL(current_item as Integer) as String
+    return m.category_list.content.getChild(current_item).feed_url
 end function
