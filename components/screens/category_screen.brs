@@ -3,53 +3,33 @@ function init()
     m.category_list.setFocus(true)
     m.category_label = m.top.findNode("category_label")
     m.content_image = m.top.findNode("content_image")
+    m.ranking_list = m.top.findNode("ranking_list")
+    m.rating_content = m.top.findNode("rating_content")
     m.category_list.observeField("itemFocused", "onCategorySelected")
 
-    runGetPhotosApiTask()
+    runGetCategoryListContentTask()
 end function
 
-function createCategoryListContent(response as Object) as Object
-    contentNode = createObject("roSGNode","ContentNode")
-    for each item in response
-        categoryNode = createCategoryNode(item.title, item.url)
-        contentNode.appendChild(categoryNode)
-    end for
-
-    return contentNode
-end function
-
-function createCategoryNode(title as String, url as String) as Object
-    category_node = createObject("roSGNode", "category_node")
-    category_node.title = title
-    category_node.feed_url = url
-
-    return category_node
-end function
-
-function runGetPhotosApiTask() as Void
-    task = CreateObject("roSgNode", "getPhotosApiTask")
-    task.observeField("response", "onResponseChanged")
+function runGetCategoryListContentTask() as Void
+    task = CreateObject("roSgNode", "getCategoryListContentTask")
+    task.observeField("categoryListContent", "getCategoryListContent")
     task.control = "RUN"
 end function
 
-function onResponseChanged(event as Object) as Void
-    individual_data = ParseJson(event.getData())
-    category_list_content = createCategoryListContent(individual_data)
-
+function getCategoryListContent(message as Object) as Void
+    category_list_content = message.getData()
     m.category_list.content = category_list_content
 end function
 
 sub onCategorySelected(event as Object)
-    currnet_item_focused = event.getData()
+    currnet_item_index = event.getData()
+    current_item_data = getCurentItemData(currnet_item_index)
 
-    m.category_label.text = "Current category selected:" + getCategoryTitle(currnet_item_focused)
-    m.content_image.uri = getCategoryURL(currnet_item_focused)
+    m.category_label.text = "Current category selected:" + current_item_data.title
+    m.content_image.uri = current_item_data.feed_url
+    m.rating_content.text = current_item_data.rank
 end sub
 
-function getCategoryTitle(current_item as Integer) as String
-    return m.category_list.content.getChild(current_item).title
-end function
-
-function getCategoryURL(current_item as Integer) as String
-    return m.category_list.content.getChild(current_item).feed_url
+function getCurentItemData(current_item as Integer) as Object
+    return m.category_list.content.getChild(current_item)
 end function

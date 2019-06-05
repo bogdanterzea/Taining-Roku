@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <component name="category_screen" extends="Group">
 
     <script type="text/brightscript" uri="category_screen.brs" />
@@ -6,6 +5,8 @@
     <children>
         <Label translation="[75, 150]" id="category_label" font="font:LargeBoldSystemFont" />
         <RadioButtonList id="category_list" translation="[100, 200]" itemSize="[400,48]" />
-        <Poster id="content_image" width="400" height="400" translation="[600,250]" />
+        <Poster id="content_image" width="600" height="600" translation="[600,250]" />
+        <Label id="rating_content" translation="[650,900]" />
+        <RadioButtonList id="ranking_list" translation="[1400,250]" />
     </children>
 </component>
