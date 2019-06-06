@@ -19,8 +19,9 @@ end function
 
 function createRankContentNode(index as Integer) as Object
     rank_node = createObject("roSgNode", "rank_node")
-    rate = index.toStr()
-    rank_node.title = Substitute("Rate: {0}", rate)
+    rank = index.toStr()
+    rank_node.title = Substitute("Rate: {0}", rank)
+    rank_node.rank = rank
 
     return rank_node
 end function

@@ -4,8 +4,9 @@ function init()
     m.category_label = m.top.findNode("category_label")
     m.content_image = m.top.findNode("content_image")
     m.ranking_list = m.top.findNode("ranking_list")
-    m.rating_label = m.top.findNode("rating_label")
-    m.category_list.observeField("itemFocused", "onCategorySelected")
+    m.category_rank = m.top.findNode("category_rank")
+    m.category_list.observeField("itemFocused", "onCategoryFocused")
+    m.ranking_list.observeField("itemSelected", "onRankSelected")
 
     runGetCategoryListContentTask()
     runGetRankListContentTask()
@@ -45,15 +46,25 @@ function getCategoryListContent(message as Object) as Void
     m.category_list.content = category_list_content
 end function
 
-sub onCategorySelected(event as Object)
-    currnet_item_index = event.getData()
-    current_item_data = getCurentItemData(currnet_item_index)
+sub onCategoryFocused(event as Object)
+    current_item_index = event.getData()
+    m.itemFocused = getCurentItemData(current_item_index)
 
-    m.category_label.text = "Current category selected:" + current_item_data.title
-    m.content_image.uri = current_item_data.feed_url
-    m.rating_label.text = current_item_data.rank
+    m.category_label.text = "Current category selected:" + m.itemFocused.title
+    m.content_image.uri = m.itemFocused.feed_url
+    m.category_rank.text = m.itemFocused.rank
 end sub
 
 function getCurentItemData(current_item as Integer) as Object
     return m.category_list.content.getChild(current_item)
+end function
+
+sub onRankSelected(event as Object)
+    current_item_index = event.getData()
+    itemSelected = getCurrentRankData(current_item_index)
+    m.itemFocused.rank = itemSelected.rank
+end sub
+
+function getCurrentRankData(current_item as Integer) as Object
+    return m.ranking_list.content.getChild(current_item)
 end function

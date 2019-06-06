@@ -31,7 +31,7 @@ function createCategoryNode(itemData as Object) as Object
     category_node = createObject("roSGNode", "category_node")
     category_node.title = itemData.title
     category_node.feed_url = itemData.url
-    category_node.rank = rnd(5)
+    category_node.rank = 0
 
     return category_node
 end function
