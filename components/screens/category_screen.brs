@@ -50,9 +50,8 @@ sub onCategoryFocused(event as Object)
     current_item_index = event.getData()
     m.itemFocused = getCurentItemData(current_item_index)
 
-    m.category_label.text = "Current category selected:" + m.itemFocused.title
     m.content_image.uri = m.itemFocused.feed_url
-    m.category_rank.text = m.itemFocused.rank
+    m.category_rank.text = Substitute("Ranking for {0} is {1}", m.itemFocused.title, m.itemFocused.rank.toStr())
 end sub
 
 function getCurentItemData(current_item as Integer) as Object
