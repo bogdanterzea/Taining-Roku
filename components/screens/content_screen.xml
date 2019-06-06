@@ -1,7 +1,0 @@
-<component name="content_screen" extends="Group" >
-    <interface>
-        <field id="feed_data" type="assocArray" onChange="onFeedCharge" />
-    </interface>
-
-    <script type="text/brightscript" uri="pkg:/components/screens/content_screen.brs" />
-</component>

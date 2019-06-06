@@ -11,6 +11,18 @@ function init()
     runGetRankListContentTask()
 end function
 
+function onKeyEvent(key, press) as Boolean
+    if press Then
+        if (key = "right") then
+            m.ranking_list.setFocus(true)
+        else if (key = "left") then
+            m.category_list.setFocus(true)
+        end if
+    end if
+
+    return false
+end function
+
 function runGetRankListContentTask() as Void
     task = createObject("roSgNode", "getRankListContentTask")
     task.observeField("rankListContent", "getRankListContent")
