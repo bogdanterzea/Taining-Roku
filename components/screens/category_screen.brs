@@ -4,10 +4,22 @@ function init()
     m.category_label = m.top.findNode("category_label")
     m.content_image = m.top.findNode("content_image")
     m.ranking_list = m.top.findNode("ranking_list")
-    m.rating_content = m.top.findNode("rating_content")
+    m.rating_label = m.top.findNode("rating_label")
     m.category_list.observeField("itemFocused", "onCategorySelected")
 
     runGetCategoryListContentTask()
+    runGetRankListContentTask()
+end function
+
+function runGetRankListContentTask() as Void
+    task = createObject("roSgNode", "getRankListContentTask")
+    task.observeField("rankListContent", "getRankListContent")
+    task.control = "RUN"
+end function
+
+function getRankListContent(message as Object) as Void
+    rank_content = message.getData()
+    m.ranking_list.content = rank_content
 end function
 
 function runGetCategoryListContentTask() as Void
@@ -27,7 +39,7 @@ sub onCategorySelected(event as Object)
 
     m.category_label.text = "Current category selected:" + current_item_data.title
     m.content_image.uri = current_item_data.feed_url
-    m.rating_content.text = current_item_data.rank
+    m.rating_label.text = current_item_data.rank
 end sub
 
 function getCurentItemData(current_item as Integer) as Object

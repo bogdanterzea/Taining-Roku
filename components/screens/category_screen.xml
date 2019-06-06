@@ -6,7 +6,7 @@
         <Label translation="[75, 150]" id="category_label" font="font:LargeBoldSystemFont" />
         <RadioButtonList id="category_list" translation="[100, 200]" itemSize="[400,48]" />
         <Poster id="content_image" width="600" height="600" translation="[600,250]" />
-        <Label id="rating_content" translation="[650,900]" />
+        <Label id="rating_label" translation="[650,900]" />
         <RadioButtonList id="ranking_list" translation="[1400,250]" />
     </children>
 </component>
