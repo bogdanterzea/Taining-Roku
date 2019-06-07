@@ -1,7 +1,0 @@
-<component name="getRankListContentTask" extends="Task">
-    <interface>
-        <field id="rankListContent" type="node" />
-    </interface>
-
-    <script type="text/brightscript" uri="getRankListContentTask.brs" />
-</component>

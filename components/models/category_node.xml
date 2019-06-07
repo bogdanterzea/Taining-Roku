@@ -1,6 +1,0 @@
-<component name="category_node" extends="ContentNode">
-	<interface>
-		<field id="feed_url" type="string" />
-		<field id="rank" type="int" />
-	</interface>
-</component>

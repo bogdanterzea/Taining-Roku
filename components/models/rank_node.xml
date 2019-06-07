@@ -1,5 +1,0 @@
-<component name="rank_node" extends="ContentNode" >
-    <interface>
-      <field id="rank" type="int" />
-  </interface>
-</component>

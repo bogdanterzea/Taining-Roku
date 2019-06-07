@@ -1,12 +1,18 @@
 <component name="category_screen" extends="Group">
 
     <script type="text/brightscript" uri="category_screen.brs" />
+    <interface>
+        <field id="category_selected" type="assocarray" alias= "category_list.itemSelected" />
+    </interface>
 
     <children>
-        <Label translation="[75, 150]" id="category_label" font="font:LargeBoldSystemFont" />
-        <RadioButtonList id="category_list" translation="[100, 200]" itemSize="[400,48]" />
-        <Poster id="content_image" width="600" height="600" translation="[600,250]" />
-        <Label id="category_rank" translation="[650,900]" />
-        <RadioButtonList id="ranking_list" translation="[1400,250]" />
+        <Label translation="[75, 150]" id="env" font= "font:LargeBoldSystemFont" text= "PICK A CATEGORY:" />
+        <RadioButtonList id="category_list" translation= "[100,200]" itemSize= "[400,48]" >
+            <ContentNode id = "categories" role = "content" >
+                <category_node title = "DRAMA" feed_url="https://my-json-server.typicode.com/cazacutudor/typicode-json-server/photos"/>
+                <category_node title = "COMEDY" feed_url="https://my-json-server.typicode.com/cazacutudor/typicode-json-server/photos"/>
+                <category_node title = "HORROR" feed_url="https://my-json-server.typicode.com/cazacutudor/typicode-json-server/photos"/>
+            </ContentNode>
+        </RadioButtonList>
     </children>
 </component>

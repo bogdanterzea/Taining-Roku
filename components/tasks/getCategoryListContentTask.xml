@@ -1,7 +1,0 @@
-<component name="getCategoryListContentTask" extends="Task">
-    <interface>
-        <field id="categoryListContent" type="node" />
-    </interface>
-
-    <script type="text/brightscript" uri="getCategoryListContentTask.brs" />
-</component>
