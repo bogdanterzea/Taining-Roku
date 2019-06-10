@@ -35,7 +35,14 @@ end sub
 
 function onKeyEvent(key, press) as Boolean
 	if press Then
-		if (key = "back") then m.top.appExit = true
+		if (key = "back")
+			if m.content_screen.visible
+				m.content_screen.visible = false
+				m.category_screen.visible = true
+				m.category_screen.setFocus(true)
+				return true
+			end if
+		end if
 	end if
 	return false
 end function

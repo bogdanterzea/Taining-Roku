@@ -6,7 +6,6 @@ sub main()
     ? "Channel ID: ", app_info.getID()
     ? "IsDev: ", app_info.IsDev()
 
-
     device_info = CreateObject("roDeviceInfo")
 	? "Model: ", device_info.GetModel()
 	? "Display Name: ", device_info.GetModelDisplayName()
