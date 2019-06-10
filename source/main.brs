@@ -5,7 +5,6 @@ sub main()
     ? "App Verson: ", app_info.getVersion()
     ? "Channel ID: ", app_info.getID()
     ? "IsDev: ", app_info.IsDev()
-    ? "custom_field", app_info.getValue("custom_field")
 
 
     device_info = CreateObject("roDeviceInfo")
