@@ -15,13 +15,13 @@ sub onFeedChanged(obj)
         node.SHORTDESCRIPTIONLINE1 = item.title
         node.SHORTDESCRIPTIONLINE2 = item.description
 
-     postercontent.appendChild(node)
+        postercontent.appendChild(node)
     End For
     showpostergrid(postercontent)
 end sub
 
 sub showpostergrid(content)
-  m.content_grid.content=content
-  m.content_grid.visible=true
-  m.content_grid.setFocus(true)
+    m.content_grid.content=content
+    m.content_grid.visible=true
+    m.content_grid.setFocus(true)
 end sub

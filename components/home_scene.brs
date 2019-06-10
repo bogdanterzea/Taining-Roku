@@ -8,17 +8,17 @@ function init()
 end function
 
 sub onCategorySelected(obj)
-  selected_index = obj.getData()
-  item = m.category_screen.findNode("category_list").content.getChild(selected_index)
+  	selected_index = obj.getData()
+  	item = m.category_screen.findNode("category_list").content.getChild(selected_index)
 
-  loadFeed(item.feed_url)
+  	loadFeed(item.feed_url)
 end sub
 
 sub loadFeed(url)
-  m.feed_task = CreateObject("roSGNode", "load_feed_task")
-  m.feed_task.observeField("response", "onFeedResponse")
-  m.feed_task.url = url
-  m.feed_task.control = "RUN"
+  	m.feed_task = CreateObject("roSGNode", "load_feed_task")
+  	m.feed_task.observeField("response", "onFeedResponse")
+  	m.feed_task.url = url
+  	m.feed_task.control = "RUN"
 end sub
 
 sub onFeedResponse(obj)
@@ -26,11 +26,6 @@ sub onFeedResponse(obj)
 	m.content_screen.visible = true
 	response = obj.getData()
 	data = parseJSON(response)
-	? data
-	? data[4]
-
-
-
 	if data <> Invalid
 		m.content_screen.feed_data = data
 	else
