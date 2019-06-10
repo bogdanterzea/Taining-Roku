@@ -5,7 +5,7 @@ function init()
 end function
 
 sub onVisibleChange()
-    if m.top.visible = true Then
+    if m.top.visible = true then
         m.category_list.setFocus(true)
     end if
 end sub
