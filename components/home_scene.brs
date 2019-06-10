@@ -4,12 +4,20 @@ function init()
 	m.content_screen = m.top.findNode("content_screen")
 	m.details_screen = m.top.findNode("details_screen")
 	m.content_grid = m.top.findNode("content_grid")
+	m.videoplayer = m.top.findNode("videoplayer")
 
 	m.category_screen.observeField("category_selected", "onCategorySelected")
 	m.content_screen.observeField("content_selected", "onContentSelected")
+	m.details_screen.observeField("play_button_pressed", "onPlayButtonPressed")
 	? "FAC CATEGORY TRUE (comedy/drama/horror)"
 	m.category_screen.SetFocus(true)
 end function
+
+sub onPlayButtonPressed(obj)
+	m.details_screen.visible = false
+	m.videoplayer.visible = true
+	m.videoplayer.setFocus(true)
+end sub
 
 sub onCategorySelected(obj)
   	selected_index = obj.getData()
@@ -59,11 +67,14 @@ function onKeyEvent(key, press) as Boolean
 				return true
 			else if m.details_screen.visible
 				? "Ai apasat back din details"
-
+				m.details_screen.visible = false
 				m.content_screen.visible = true
 				m.content_grid.setFocus(true)
-				m.details_screen.visible = false
 				return true
+			else if m.videoplayer.visible
+				m.videoplayer.visible = false
+				m.details_screen.visible = true
+				m.details_screen.setFocus(true)
 			end if
 		end if
 	end if
