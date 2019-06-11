@@ -1,4 +1,4 @@
-<component   name="content_screen"   extends="Group" >
+<component   name="content_screen"   extends="Group" initialFocus="details_screen">
 <script type="text/brightscript" uri="content_screen.brs" />
     <interface>
         <field id="feed_data" type="array" onChange="onFeedChanged" />
