@@ -3,13 +3,15 @@ function init()
 	m.category_screen = m.top.findNode("category_screen")
 	m.content_screen = m.top.findNode("content_screen")
 	m.details_screen = m.top.findNode("details_screen")
-	m.content_grid = m.top.findNode("content_grid")
 	m.videoplayer = m.top.findNode("videoplayer")
+	m.content_grid = m.content_screen.findNode("content_grid")
+	m.play_button = m.details_screen.findNode("play_button")
+	m.category_list = m.category_screen.findNode("category_list")
 
 	m.category_screen.observeField("category_selected", "onCategorySelected")
 	m.content_screen.observeField("content_selected", "onContentSelected")
 	m.details_screen.observeField("play_button_pressed", "onPlayButtonPressed")
-	? "FAC CATEGORY TRUE (comedy/drama/horror)"
+
 	m.category_screen.SetFocus(true)
 end function
 
@@ -28,7 +30,6 @@ end sub
 
 sub onContentSelected(obj)
 	selected_index = obj.getData()
-	? selected_index
 	item = m.content_screen.findNode("content_grid").content.getChild(selected_index)
 	m.details_screen.content = item
 	m.content_screen.visible = false
@@ -46,11 +47,10 @@ sub onFeedResponse(obj)
 	response = obj.getData()
 	data = parseJSON(response)
 	if data <> Invalid
-		? "FAC CONTENT(elementele) TRUE home.brs"
 		m.category_screen.visible = false
 		m.content_screen.visible = true
 		m.content_screen.feed_data = data
-		m.content_screen.setFocus(true)
+		m.content_grid.setFocus(true)
 	else
 		? "FEED RESPONSE IS EMPTY!"
 	end if
@@ -60,13 +60,11 @@ function onKeyEvent(key, press) as Boolean
 	if press Then
 		if (key = "back")
 			if m.content_screen.visible
-				? "Acum ai iesit din gridul de obiecte la maniul principal"
 				m.content_screen.visible = false
 				m.category_screen.visible = true
-				m.category_screen.setFocus(true)
+				m.category_list.setFocus(true)
 				return true
 			else if m.details_screen.visible
-				? "Ai apasat back din details"
 				m.details_screen.visible = false
 				m.content_screen.visible = true
 				m.content_grid.setFocus(true)
@@ -74,7 +72,8 @@ function onKeyEvent(key, press) as Boolean
 			else if m.videoplayer.visible
 				m.videoplayer.visible = false
 				m.details_screen.visible = true
-				m.details_screen.setFocus(true)
+				m.play_button.setFocus(true)
+				return true
 			end if
 		end if
 	end if
