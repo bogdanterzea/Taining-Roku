@@ -22,6 +22,7 @@ sub initializedVideoPlayer()
 	m.videoplayer.enableCookies()
 	m.videoplayer.setCertificatesFile("common:/certs/ca-bundle.crt")
 	m.videoplayer.InitClientCertificates()
+	m.videoplayer.notificationInterval = 1
 	m.videoplayer.observeFieldScoped("position", "onPlayerPositionChanged")
 	m.videoplayer.observeFieldScoped("state", "onPlayerStateChanged")
 end sub
