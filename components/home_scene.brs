@@ -3,7 +3,11 @@ function init()
 	m.category_screen = m.top.findNode("category_screen")
 	m.content_screen = m.top.findNode("content_screen")
 	m.details_screen = m.top.findNode("details_screen")
+	m.error_dialog = m.top.findNode("error_dialog")
+
 	m.videoplayer = m.top.findNode("videoplayer")
+	initializedVideoPlayer()
+
 	m.content_grid = m.content_screen.findNode("content_grid")
 	m.play_button = m.details_screen.findNode("play_button")
 	m.category_list = m.category_screen.findNode("category_list")
@@ -15,11 +19,29 @@ function init()
 	m.category_screen.SetFocus(true)
 end function
 
-sub onPlayButtonPressed(obj)
-	m.details_screen.visible = false
-	m.videoplayer.visible = true
-	m.videoplayer.setFocus(true)
+sub showErrorDialog(message)
+	m.error_dialog.title = "ERROR"
+	m.error_dialog.message = message
+	m.error_dialog.visible = true
+	m.top.dialog = m.error_dialog
 end sub
+
+sub initializedVideoPlayer()
+	m.videoplayer.enableCookies()
+	m.videoplayer.setCertificatesFile("common:/certs/ca-bundle.crt")
+	m.videoplayer.InitClientCertificates()
+	m.videoplayer.observeFieldScoped("state", "onPlayerStateChanged")
+end sub
+
+sub onPlayerStateChanged(obj)
+	state = obj.getData()
+	if state = "error"
+		showErrorDialog (m.videoplayer.errorMsg + chr(10) + "ErrorCode: " + m.videoplayer.errorCode.toStr())
+	else if state = "finished"
+		closeVideo()
+	end if
+end sub
+
 
 sub onCategorySelected(obj)
   	selected_index = obj.getData()
@@ -30,10 +52,18 @@ end sub
 
 sub onContentSelected(obj)
 	selected_index = obj.getData()
-	item = m.content_screen.findNode("content_grid").content.getChild(selected_index)
-	m.details_screen.content = item
+	m.selected_media = m.content_screen.findNode("content_grid").content.getChild(selected_index)
+	m.details_screen.content = m.selected_media
 	m.content_screen.visible = false
 	m.details_screen.visible = true
+end sub
+
+sub onPlayButtonPressed(obj)
+	m.details_screen.visible = false
+	m.videoplayer.visible = true
+	m.videoplayer.setFocus(true)
+	m.videoplayer.content = m.selected_media
+	m.videoplayer.control = "play"
 end sub
 
 sub loadFeed(url)
@@ -56,6 +86,13 @@ sub onFeedResponse(obj)
 	end if
 end sub
 
+sub closeVideo()
+	m.videoplayer.control = "stop"
+	m.videoplayer.visible = false
+	m.details_screen.visible = true
+	m.play_button.setFocus(true)
+end sub
+
 function onKeyEvent(key, press) as Boolean
 	if press Then
 		if (key = "back")
@@ -70,9 +107,7 @@ function onKeyEvent(key, press) as Boolean
 				m.content_grid.setFocus(true)
 				return true
 			else if m.videoplayer.visible
-				m.videoplayer.visible = false
-				m.details_screen.visible = true
-				m.play_button.setFocus(true)
+				closeVideo()
 				return true
 			end if
 		end if

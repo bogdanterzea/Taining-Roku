@@ -9,11 +9,14 @@ sub onFeedChanged(obj)
     postercontent = createObject("roSGNode","ContentNode")
     For each item in feed
         node = createObject("roSGNode","ContentNode")
+        node.streamformat = "hls"
         node.HDGRIDPOSTERURL = item.url
         node.id = item.id
         node.HDPosterUrl = item.url
+        node.description = item.description
         node.SHORTDESCRIPTIONLINE1 = item.title
         node.SHORTDESCRIPTIONLINE2 = item.description
+        node.url = "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
 
         postercontent.appendChild(node)
     End For
