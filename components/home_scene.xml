@@ -4,6 +4,6 @@
         <category_screen id="category_screen" visible="true" translation="[0,0]" />
         <content_screen id= "content_screen" visible= "false" translation= "[0,0]" />
         <details_screen id="details_screen" visible="false" translation= "[0,0]" />
-        <video id="videoplayer" visible= "false" translation="[0,0]" width="1920" height="1080" url="https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"/>
+        <video id="videoplayer" visible= "false" translation="[0,0]" width="1920" height="1080" content="https://roku.s.cpl.delvenetworks.com/media/59021fabe3b645968e382ac726cd6c7b/60b4a471ffb74809beb2f7d5a15b3193/roku_ep_111_segment_1_final-cc_mix_033015-a7ec8a288c4bcec001c118181c668de321108861.m3u8" />
     </children>
 </component>

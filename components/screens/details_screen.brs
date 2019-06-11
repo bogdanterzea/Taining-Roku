@@ -4,6 +4,7 @@ sub init()
     m.thumbnail = m.top.findNode("thumbnail")
     m.play_button = m.top.findNode("play_button")
     m.top.observeField("visible", "onVisibleChange")
+
     m.play_button.setFocus(true)
 end sub
 
