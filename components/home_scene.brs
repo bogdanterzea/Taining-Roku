@@ -3,7 +3,10 @@ function init()
 	m.category_screen = m.top.findNode("category_screen")
 	m.content_screen = m.top.findNode("content_screen")
 	m.details_screen = m.top.findNode("details_screen")
+
 	m.videoplayer = m.top.findNode("videoplayer")
+	initializedVideoPlayer()
+
 	m.content_grid = m.content_screen.findNode("content_grid")
 	m.play_button = m.details_screen.findNode("play_button")
 	m.category_list = m.category_screen.findNode("category_list")
@@ -14,6 +17,24 @@ function init()
 
 	m.category_screen.SetFocus(true)
 end function
+
+sub initializedVideoPlayer()
+	m.videoplayer.enableCookies()
+	m.videoplayer.setCertificatesFile("common:/certs/ca-bundle.crt")
+	m.videoplayer.InitClientCertificates()
+	m.videoplayer.observeFieldScoped("position", "onPlayerPositionChanged")
+	m.videoplayer.observeFieldScoped("state", "onPlayerStateChanged")
+end sub
+
+sub onPlayerPositionChanged(obj)
+	?"Player Position: ", obj.getData()
+end sub
+
+sub onPlayerStateChanged(obj)
+	state = obj.getData()
+	? "player STATE changed: ", state
+end sub
+
 
 sub onCategorySelected(obj)
   	selected_index = obj.getData()
