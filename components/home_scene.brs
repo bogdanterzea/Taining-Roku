@@ -3,6 +3,7 @@ function init()
 	m.category_screen = m.top.findNode("category_screen")
 	m.content_screen = m.top.findNode("content_screen")
 	m.details_screen = m.top.findNode("details_screen")
+	m.error_dialog = m.top.findNode("error_dialog")
 
 	m.videoplayer = m.top.findNode("videoplayer")
 	initializedVideoPlayer()
@@ -18,22 +19,27 @@ function init()
 	m.category_screen.SetFocus(true)
 end function
 
+sub showErrorDialog(message)
+	m.error_dialog.title = "ERROR"
+	m.error_dialog.message = message
+	m.error_dialog.visible = true
+	m.top.dialog = m.error_dialog
+end sub
+
 sub initializedVideoPlayer()
 	m.videoplayer.enableCookies()
 	m.videoplayer.setCertificatesFile("common:/certs/ca-bundle.crt")
 	m.videoplayer.InitClientCertificates()
-	m.videoplayer.notificationInterval = 1
-	m.videoplayer.observeFieldScoped("position", "onPlayerPositionChanged")
 	m.videoplayer.observeFieldScoped("state", "onPlayerStateChanged")
-end sub
-
-sub onPlayerPositionChanged(obj)
-	?"Player Position: ", obj.getData()
 end sub
 
 sub onPlayerStateChanged(obj)
 	state = obj.getData()
-	? "player STATE changed: ", state
+	if state = "error"
+		showErrorDialog (m.videoplayer.errorMsg + chr(10) + "ErrorCode: " + m.videoplayer.errorCode.toStr())
+	else if state = "finished"
+		closeVideo()
+	end if
 end sub
 
 
@@ -80,6 +86,13 @@ sub onFeedResponse(obj)
 	end if
 end sub
 
+sub closeVideo()
+	m.videoplayer.control = "stop"
+	m.videoplayer.visible = false
+	m.details_screen.visible = true
+	m.play_button.setFocus(true)
+end sub
+
 function onKeyEvent(key, press) as Boolean
 	if press Then
 		if (key = "back")
@@ -94,10 +107,7 @@ function onKeyEvent(key, press) as Boolean
 				m.content_grid.setFocus(true)
 				return true
 			else if m.videoplayer.visible
-				m.videoplayer.control = "stop"
-				m.videoplayer.visible = false
-				m.details_screen.visible = true
-				m.play_button.setFocus(true)
+				closeVideo()
 				return true
 			end if
 		end if
