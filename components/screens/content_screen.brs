@@ -9,7 +9,7 @@ sub onFeedChanged(obj)
     postercontent = createObject("roSGNode","ContentNode")
     For each item in feed
         node = createObject("roSGNode","ContentNode")
-        node.HDGRIDPOSTERURL = item.thumbnail
+        node.HDGRIDPOSTERURL = item.url
         node.id = item.id
         node.HDPosterUrl = item.url
         node.SHORTDESCRIPTIONLINE1 = item.title

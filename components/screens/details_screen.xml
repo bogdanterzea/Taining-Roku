@@ -1,0 +1,13 @@
+<component name="details_screen" extends="group" >
+    <interface>
+      <field id="content" type="node" alwaysnotify="true" onChange="OnContentChange" />
+      <field id="play_button_pressed" type="int" alias="play_button.buttonSelected" />
+    </interface>
+    <script type="text/brightscript" uri="details_screen.brs" />
+    <children>
+      <poster id="thumbnail" width="500" height="280" translation="[200, 200]" />
+      <button id="play_button" text="PLAY!" translation="[200,600]" />
+      <label id="title" text="" translation="[800,200]" font="font:LargeBoldSystemFont" color="0xFFFFFF" />
+      <label id="description" font= "fint:LargeBoldSystemFont" color="0xFFFFFF" text="" translation= "[800,300]"/>
+    </children>
+</component>

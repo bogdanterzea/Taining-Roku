@@ -1,7 +1,8 @@
-<component   name="content_screen"   extends="Group"   initialFocus="content_grid" >
+<component   name="content_screen"   extends="Group" initialFocus="details_screen">
 <script type="text/brightscript" uri="content_screen.brs" />
     <interface>
         <field id="feed_data" type="array" onChange="onFeedChanged" />
+        <field id="content_selected" type="assocarray" alias="content_grid.itemSelected" />
     </interface>
     <children>
         <Label translation="[75, 75]" id="header" color="0xFFFFFF" font="font:LargeBoldSystemFont" />
